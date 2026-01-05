@@ -1,26 +1,78 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: #00703C;
+  --color-primary-hover: #005a30;
+  --color-uj-accent: #00B06B;
+  --font-display: "Playfair Display", serif;
+  --font-body: "Inter", sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html, body {
+  height: 100%;
+  margin: 0;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+  @apply bg-gray-100 text-gray-800 dark:bg-[#1A1A1A] dark:text-gray-200 transition-colors duration-300;
+}
+
+/* Theme toggle switch styles */
+.theme-switch {
+  position: relative;
+  width: 64px;
+  height: 32px;
+}
+
+.theme-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.theme-slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  border-radius: 50px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.theme-slider:before {
+  position: absolute;
+  content: "☀️";
+  height: 26px;
+  width: 26px;
+  left: 3px;
+  bottom: 3px;
+  background: white;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+input:checked + .theme-slider {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+input:checked + .theme-slider:before {
+  transform: translateX(32px);
+  content: "🌙";
+}
+
+.theme-slider:hover {
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2), 0 0 12px rgba(253, 160, 133, 0.4);
+}
+
+input:checked + .theme-slider:hover {
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2), 0 0 12px rgba(102, 126, 234, 0.4);
 }
